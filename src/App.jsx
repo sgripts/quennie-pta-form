@@ -3,6 +3,7 @@ import EntryForm from './components/EntryForm';
 import PrivateRoute from "./components/PrivateRoute";
 import PocketBaseContext from './components/PocketBaseContext';
 import PocketBase from 'pocketbase';
+import TableView from "./components/TableView";
 import {
     createBrowserRouter,
     RouterProvider,
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: <SignIn />
+    },
+    {
+        path: '/view-table',
+        element: <PrivateRoute element={<TableView />} />,
     }
 ]);
 
@@ -32,7 +37,7 @@ function App() {
     <>
         <PocketBaseContext.Provider value={{ pb, gradeLevels }}>
             <div className="container mx-auto p-2 min-h-dvh flex flex-col items-center justify-center gap-8">
-                <h1 className="text-xl font-bold">PTA Record Form</h1>
+                <h1 className="text-xl font-bold">PTA Record</h1>
                 <RouterProvider router={router} />
             </div>
         </PocketBaseContext.Provider>

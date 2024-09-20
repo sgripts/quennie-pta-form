@@ -42,6 +42,18 @@ export default function EntryForm() {
         navigate("/login");
     }
 
+    const viewTable = (e) => {
+        e.preventDefault();
+        navigate('/view-table');
+    }
+
+    const capitalizeWords = (str) => {
+        return str
+            .split(' ')  // Split the string into words
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())  // Capitalize each word
+            .join(' ');  // Join the words back into a string
+    }
+
     const onSubmit = async (formData) => {
         setIsLoading(true);
         const recordExist = await doesParentExist(formData);
@@ -60,8 +72,8 @@ export default function EntryForm() {
 
         } else {
             const data = {
-                "firstName": formData["firstName"],
-                "lastName": formData["lastName"],
+                "firstName": capitalizeWords(formData["firstName"]),
+                "lastName": capitalizeWords(formData["lastName"]),
                 "fourPs": formData["fourPs"],
                 "GradeLevels": [
                     formData["grade_level"],
@@ -78,31 +90,37 @@ export default function EntryForm() {
 
 
     return (
-        <div className="card card-compact bg-base-100 w-[480px] shadow-xl p-8 gap-4">
-            <h2 className="font-bold text-center">Add Record</h2>
-            <div className="form-container">
-                <form onSubmit={handleSubmit(onSubmit)} method="post" className="flex flex-col gap-4 justify-stretch">
-                    <input type="text" {...register("firstName")} placeholder="First Name"
-                           className="input input-bordered w-full" required/>
-                    <input type="text" {...register("lastName")} placeholder="Last Name"
-                           className="input input-bordered w-full" required/>
-                    <select {...register("grade_level")} className="select select-bordered w-full" required>
-                        <option disabled>Select Grade:</option>
-                        {gradeSelectOptions}
-                    </select>
-                    <div className="form-control">
-                        <label className="label cursor-pointer flex flex-row gap-2 justify-start">
-                            <span className="label-text">4Ps</span>
-                            <input type="checkbox" {...register("fourPs")} className="toggle"/>
-                        </label>
-                    </div>
-                    <button type="submit" className="btn btn-primary cursor-pointer bg-green-200"
-                            disabled={isLoading}>{isLoading ?
-                        <span className="loading loading-dots loading-xs"></span>
-                        : "Submit"}</button>
-                </form>
+        <>
+            <div className="card card-compact bg-base-100 w-[480px] shadow-xl p-8 gap-4">
+                <h3 className="font-bold text-center">Add Record</h3>
+                <div className="form-container">
+                    <form onSubmit={handleSubmit(onSubmit)} method="post" className="flex flex-col gap-4 justify-stretch">
+                        <input type="text" {...register("firstName")} placeholder="First Name"
+                               className="input input-bordered w-full" required/>
+                        <input type="text" {...register("lastName")} placeholder="Last Name"
+                               className="input input-bordered w-full" required/>
+                        <select {...register("grade_level")} className="select select-bordered w-full" required>
+                            <option disabled>Select Grade:</option>
+                            {gradeSelectOptions}
+                        </select>
+                        <div className="form-control">
+                            <label className="label cursor-pointer flex flex-row gap-2 justify-start">
+                                <span className="label-text">4Ps</span>
+                                <input type="checkbox" {...register("fourPs")} className="toggle"/>
+                            </label>
+                        </div>
+                        <button type="submit" className="btn btn-primary cursor-pointer bg-green-200"
+                                disabled={isLoading}>{isLoading ?
+                            <span className="loading loading-dots loading-xs"></span>
+                            : "Submit"}</button>
+                    </form>
+                </div>
+                <div className="flex flex-row gap-4 justify-between">
+                    <button onClick={viewTable} className="link link-success mt-4">View All Data
+                    </button>
+                    <button onClick={signOut} className="link link-error self-end mt-4">Sign out</button>
+                </div>
             </div>
-            <button onClick={signOut} className="link link-error self-end mt-4">Sign out</button>
-        </div>
+        </>
     )
 }
