@@ -38,7 +38,7 @@ function App() {
         <PocketBaseContext.Provider value={{ pb, gradeLevels }}>
             <div className="container mx-auto p-2 min-h-dvh flex flex-col items-center justify-center gap-8">
                 <h1 className="text-xl font-bold">PTA Record</h1>
-                <RouterProvider router={router} />
+                <RouterProvider router={router} basename="/quennie-pta-form/"/>
             </div>
         </PocketBaseContext.Provider>
     </>
