@@ -17,14 +17,20 @@ const UpdateForm = ({ data }) => {
 
     const onSubmit = async (value) => {
         setIsLoading(true);
-        console.log(value);
+        console.log('value:', value);
+        let record;
 
-        const record = await pb.collection('Parents').update(value.recordId, {
-           "firstName": value.firstName,
-           "lastName": value.lastName,
-           "fourPs": value.fourPs,
-            "GradeLevels": [...value.grade_level],
-        });
+        try {
+            record = await pb.collection('Parents').update(value.recordId, {
+                "firstName": value.firstName,
+                "lastName": value.lastName,
+                "fourPs": value.fourPs,
+                "GradeLevels": value.grade_level,
+            });
+        } catch (error) {
+            console.error('Error occurred while updating record.', error);
+        }
+
         console.log('record updated!', record);
 
         alert('Parent record has been updated!');

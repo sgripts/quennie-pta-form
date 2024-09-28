@@ -74,7 +74,13 @@ const TableView = () => {
         e.preventDefault();
 
         if (window.confirm('Are you sure you want to delete these records?')) {
-            selectedRows.forEach(async item => await pb.collection('Parents').delete(item.id));
+            selectedRows.forEach(async item => {
+                try {
+                    await pb.collection('Parents').delete(item.id);
+                } catch (err) {
+                    console.log('Error encountered while deleting record.', err);
+                }
+            });
             alert('Record(s) has been deleted!');
             window.location.reload();
         }
