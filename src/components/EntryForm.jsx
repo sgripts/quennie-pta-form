@@ -94,7 +94,8 @@ export default function EntryForm() {
             <div className="card card-compact bg-base-100 w-[480px] shadow-xl p-8 gap-4">
                 <h3 className="font-bold text-center">Add Record</h3>
                 <div className="form-container">
-                    <form onSubmit={handleSubmit(onSubmit)} method="post" className="flex flex-col gap-4 justify-stretch">
+                    <form onSubmit={handleSubmit(onSubmit)} method="post"
+                          className="flex flex-col gap-4 justify-stretch">
                         <input type="text" {...register("firstName")} placeholder="First Name"
                                className="input input-bordered w-full" required/>
                         <input type="text" {...register("lastName")} placeholder="Last Name"
