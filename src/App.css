@@ -4,3 +4,9 @@
   padding: 2rem;
   text-align: center;
 }
+
+@media print {
+  .no-print, .rdt_Pagination, input,.rdt_TableCell:first-child, .rdt_TableCol:first-child {
+    display: none !important;
+  }
+}
